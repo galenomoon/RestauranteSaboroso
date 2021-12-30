@@ -21,4 +21,18 @@ router.get('/', function(req, res, next) {
     })
 });
 
+router.get('/contacts', function(req, res, next) {
+    res.render('contacts');
+});
+
+router.get('/menus', function(req, res, next) {
+    res.render('menus');
+});
+router.get('/reservations', function(req, res, next) {
+    res.render('reservations');
+});
+router.get('/services', function(req, res, next) {
+    res.render('services');
+});
+
 module.exports = router;
