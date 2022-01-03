@@ -2,6 +2,7 @@ var express = require('express');
 var users = require('./../inc/users');
 var router = express.Router();
 var admin = require('./../inc/admin');
+var menus = require('./../inc/menus');
 
 
 //Será criado um MIDDLEWARE que ficará responsável por assegurar de que todas as portas (ou rotas) ficaram seguras e só poderam ser acessadas se o usuário estiver logado
@@ -75,10 +76,21 @@ router.get('/emails', function(req, res, next) {
 
     res.render('admin/emails', admin.getParams(req))
 });
+
+
 router.get('/menus', function(req, res, next) {
 
-    res.render('admin/menus', admin.getParams(req))
+    menus.getMenus().then(data => {
+
+        res.render('admin/menus', admin.getParams(req, {
+
+            data
+
+        }))
+    })
 });
+
+
 router.get('/reservations', function(req, res, next) {
 
     res.render('admin/reservations', admin.getParams(req, {
