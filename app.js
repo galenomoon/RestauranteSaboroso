@@ -21,9 +21,9 @@ app.use(function(req, res, next) {
             keepExtensions: true
         });
         form.parse(req, function(err, fields, files) {
+            req.body = fields;
             req.fields = fields;
             req.files = files;
-            // req.body = body;
             next()
         })
     } else {
@@ -47,7 +47,7 @@ app.use(session({
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 

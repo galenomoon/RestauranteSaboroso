@@ -7,14 +7,14 @@ var menus = require('./../inc/menus');
 
 //Será criado um MIDDLEWARE que ficará responsável por assegurar de que todas as portas (ou rotas) ficaram seguras e só poderam ser acessadas se o usuário estiver logado
 //esse recurso reforça a segurança, além de evitar a requisição manual da autenticação em cada página, ela é um recurso que funciona antes do carregar da página
-// router.use(function(req, res, next) {
+router.use(function(req, res, next) {
 
-//     if (['/login'].indexOf(req.url) === -1 && !req.session.user) {
-//         res.redirect('/admin/login')
-//     } else {
-//         next(); //vá ao próximo middleware ou vá para a proxima rota
-//     }
-// })
+    if (['/login'].indexOf(req.url) === -1 && !req.session.user) {
+        res.redirect('/admin/login')
+    } else {
+        next(); //vá ao próximo middleware ou vá para a proxima rota
+    }
+})
 
 router.use(function(req, res, next) {
 
