@@ -150,7 +150,6 @@
         <!-- /.modal-dialog -->
     </div>
 
-
     <%- include('inc/footer') -%>
 
         <script src="/js/hcode-filereader.js"></script>
@@ -180,31 +179,22 @@
 
                 btn.addEventListener('click', e => {
 
-
-
                     let tr = e.path.find(el => {
 
                         return (el.tagName.toUpperCase() == "TR")
-
                     })
 
                     let data = JSON.parse(tr.dataset.row)
 
                     if (confirm(`Deseja Realmente Exluir o Prato ${data.title}?`)) {
 
-
                         fetch(`/admin/menus/${data.id}`, {
                                 method: 'DELETE'
-
                             }).then(response => response.json())
                             .then(json => {
-
                                 window.location.reload()
-
                             })
-
                     }
-
                 })
             });
 
@@ -215,15 +205,12 @@
                     let tr = e.path.find(el => {
 
                         return (el.tagName.toUpperCase() == "TR")
-
                     })
 
                     let data = JSON.parse(tr.dataset.row)
 
                     for (let name in data) {
-
                         switch (name) {
-
                             case 'photo':
                                 formUpdate.querySelector('img').src = `/${data[name]}`;
                                 break;
@@ -234,6 +221,5 @@
                     }
                     $('#modal-update').modal('show')
                 })
-
             })
         </script>
