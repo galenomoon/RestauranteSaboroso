@@ -219,45 +219,10 @@
 
         <script src="/js/moment.min.js"></script>
         <script src="/js/hcode-formsave.js"></script>
+        <script src="/js/hcode-grid.js"></script>
         <script>
-            let formCreate = document.querySelector('#modal-create form');
-            formCreate.save().then(json => {
-                window.location.reload();
-            }).catch(err => {
-                console.log(err)
+            new HcodeGrid({
+                deleteUrl: '/admin/reservations/${data.id}',
+                deleteMsg: 'Deseja Realmente Exluir a Reserva de ${data.name}?'
             });
-
-            let formUpdate = document.querySelector("#modal-update form");
-
-            formUpdate.save().then(json => {
-                window.location.reload();
-            }).catch(err => {
-                console.log(err)
-            });
-
-            [...document.querySelectorAll('.btn-update')].forEach(btn => {
-
-                btn.addEventListener('click', e => {
-
-                    let tr = e.path.find(el => {
-
-                        return (el.tagName.toUpperCase() == "TR")
-                    })
-
-                    let data = JSON.parse(tr.dataset.row)
-
-                    for (let name in data) {
-                        let input = formUpdate.querySelector(`[name=${name}]`);
-                        switch (name) {
-                            case 'date':
-                                if (input) input.value = moment(data[name]).format('YYYY-MM-DD')
-                                break;
-
-                            default:
-                                if (input) input.value = data[name];
-                        }
-                    }
-                    $('#modal-update').modal('show')
-                })
-            })
         </script>

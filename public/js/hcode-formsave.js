@@ -9,6 +9,7 @@ HTMLFormElement.prototype.save = function() {
             e.preventDefault();
 
             let formData = new FormData(form);
+            console.log(formData);
 
             fetch(form.action, {
                     method: form.method,
@@ -17,8 +18,8 @@ HTMLFormElement.prototype.save = function() {
                 .then(response => response.json())
                 .then(json => {
                     // console.log("JSON", json)
-                    // window.location.reload();
                     resolve(json)
+                        // window.location.reload();
                 }).catch(err => {
                     reject(err)
                 })
