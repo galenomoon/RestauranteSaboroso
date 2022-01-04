@@ -53,7 +53,7 @@
                                     <td>
                                         <%=row.price%>
                                     </td>
-                                    <td><button type="button" class="btn btn-xs btn-info btn-update" data-toggle="modal" data-target="#modal-update">
+                                    <td><button type="button" class="btn btn-xs btn-info btn-update">
                                         <i class="fa fa-pencil"></i> Editar</button>&nbsp;<button type="button" class="btn btn-xs btn-danger btn-delete">
                             <i class="fa fa-trash"></i> Excluir</button></td>
                                 </tr>
@@ -154,23 +154,52 @@
     <%- include('inc/footer') -%>
 
         <script>
-            let formCreate = document.querySelector('#modal-create form')
+            let formCreate = document.querySelector('#modal-create form');
 
             formCreate.addEventListener('submit', e => {
 
-                e.preventDefault()
+                e.preventDefault();
 
-                let formCreateData = new FormData(formCreate)
+                let formCreateData = new FormData(formCreate);
 
-                fetch('/admin/menus', {
+                fetch("/admin/menus", {
                         method: 'POST',
                         body: formCreateData
-                    }).then(response => response.json())
+                    })
+                    .then(response => response.json())
                     .then(json => {
+                        // console.log("JSON", json)
+                        window.location.reload();
+                    });
+            });
 
-                        console.log("JSON", json)
-                            // window.location.reload()
+            let formUpdate = document.querySelector("#modal-update form");
+
+            [...document.querySelectorAll('.btn-update')].forEach(btn => {
+
+                btn.addEventListener('click', e => {
+
+                    let tr = e.path.find(el => {
+
+                        return (el.tagName.toUpperCase() == "TR")
 
                     })
+
+                    let data = JSON.parse(tr.dataset.row)
+
+                    for (let name in data) {
+
+                        switch (name) {
+
+                            case 'photo':
+                                break;
+                            default:
+                                let input = formUpdate.querySelector(`[name=${name}]`);
+                                if (input) input.value = data[name];
+                        }
+                    }
+                    $('#modal-update').modal('show')
+                })
+
             })
         </script>

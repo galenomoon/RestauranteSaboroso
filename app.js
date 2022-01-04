@@ -23,6 +23,7 @@ app.use(function(req, res, next) {
         form.parse(req, function(err, fields, files) {
             req.fields = fields;
             req.files = files;
+            // req.body = body;
             next()
         })
     } else {

@@ -2,7 +2,9 @@ var conn = require('./db')
 var path = require('path')
 
 module.exports = {
+
     getMenus() {
+
         return new Promise((resolve, reject) => {
 
             conn.query(`  
@@ -23,7 +25,7 @@ module.exports = {
 
         return new Promise((resolve, reject) => {
 
-            fields.photo = `images/${path.parse(files.photo.path).base}`
+            fields.photo = `images/${path.parse(files.photo.path).base}`;
 
             conn.query(`
             INSERT INTO tb_menus (title, description, price, photo)
