@@ -3,8 +3,10 @@ var users = require('./../inc/users');
 var router = express.Router();
 var admin = require('./../inc/admin');
 var menus = require('./../inc/menus');
+var moment = require('moment');
 var reservations = require('./../inc/reservations');
 
+moment.locale('pt-BR')
 
 //Será criado um MIDDLEWARE que ficará responsável por assegurar de que todas as portas (ou rotas) ficaram seguras e só poderam ser acessadas se o usuário estiver logado
 //esse recurso reforça a segurança, além de evitar a requisição manual da autenticação em cada página, ela é um recurso que funciona antes do carregar da página
@@ -123,7 +125,8 @@ router.get('/reservations', function(req, res, next) {
 
         res.render('admin/reservations', admin.getParams(req, {
             date: {},
-            data
+            data,
+            moment
         }))
 
     }).catch(err => {

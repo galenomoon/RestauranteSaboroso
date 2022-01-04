@@ -38,12 +38,12 @@ module.exports = {
                 query = `
                 UPDATE tb_reservations
                 SET
-                    name=?,
-                    email=?,
-                    people=?,
-                    date=?,
-                    time=?
-                WHERE if = ?
+                    name = ?,
+                    email = ?,
+                    people = ?,
+                    date = ?,
+                    time = ?
+                WHERE id = ?
                 `;
 
                 params.push(fields.id)
