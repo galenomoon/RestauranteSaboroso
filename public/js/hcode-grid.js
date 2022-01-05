@@ -109,9 +109,11 @@ class HcodeGrid {
         this.fireEvent('beforeDeleteClick')
         let data = this.getTrData(e)
         if (confirm(eval('`' + this.options.deleteMsg + '`'))) {
+
             fetch(eval('`' + this.options.deleteUrl + '`'), {
                     method: 'DELETE'
-                }).then(response => response.json())
+                })
+                .then(response => response.json())
                 .then(json => {
                     this.fireEvent('afterDeleteClick')
                 })
