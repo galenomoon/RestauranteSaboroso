@@ -1,3 +1,4 @@
+const { get } = require('express/lib/response');
 let conn = require('./db')
 
 class Pagination {
@@ -47,7 +48,45 @@ class Pagination {
     getTotalPages() {
         return this.totalPages;
     }
+    getNavigation(params) {
 
+        let limitPagesNav = 5;
+        let links = [];
+        let nrstart = 0;
+        let nrend = 0;
+
+        if (this.getTotalPages() < limitPagesNav) {
+            limitPagesNav = this.getTotalPages();
+        }
+
+        //Se estamos nas primeiras páginas
+        if ((this.getCurrentPage() - parseInt(limitPagesNav / 2)) < 1) {
+
+            nrstart = 1;
+            nrend = limitPagesNav;
+
+        }
+        //Estamos chegando nas últimas páginas
+        else if ((this.getCurrentPage() + parseInt(limitPagesNav / 1)) > this.getTotalPages()) {
+            nrstart = this.getTotalPages() - limitPagesNav;
+            nrend = this.getTotalPages();
+        }
+        //No meio dentre as páginas
+        else {
+            nrstart = this.getCurrentPage() - parseInt(limitPagesNav / 2);
+            nrend = this.getCurrentPage() + parseInt(limitPagesNav / 2);
+        }
+
+        for (let x = nrstart; x <= nrend; x++) {
+
+            links.push({
+                text: x,
+                href: `?page=${x}`,
+                active: (x === this.getCurrentPage())
+            });
+        }
+        return links;
+    }
 }
 
 module.exports = Pagination;

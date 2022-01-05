@@ -72,23 +72,36 @@ module.exports = {
     },
     getReservations(page, dtstart, dtend) {
 
-        if (!page) page = 1;
+        return new Promise((resolve, reject) => {
 
-        let params = [];
+            if (!page) page = 1;
 
-        if (dtstart && dtend) params.push(dtstart, dtend);
+            let params = [];
 
-        let pag = new Pagination(
-            `  
+            if (dtstart && dtend) params.push(dtstart, dtend);
+
+            let pag = new Pagination(
+                `  
             SELECT SQL_CALC_FOUND_ROWS *
             FROM tb_reservations
             ${(dtstart && dtend) ? 'WHERE date BETWEEN ? AND ?':''}
             ORDER BY name LIMIT ?, ?  
          
             `, params
-        )
+            )
 
-        return pag.getPage(page)
+            pag.getPage(page).then(data => {
+
+                resolve({
+                    data,
+                    links: pag.getNavigation()
+                })
+
+            })
+
+        })
+
+
     },
     delete(id) {
 

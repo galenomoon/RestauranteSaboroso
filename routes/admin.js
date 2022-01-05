@@ -134,14 +134,15 @@ router.get('/reservations', function(req, res, next) {
         req.query.page,
         req.query.start,
         req.query.end
-    ).then(data => {
+    ).then(pag => {
         res.render('admin/reservations', admin.getParams(req, {
             date: {
                 start,
                 end
             },
-            data,
-            moment
+            data: pag.data,
+            moment,
+            links: pag.links
         }))
     }).catch(err => {
         res.send(err)
