@@ -70,9 +70,13 @@ module.exports = {
             })
         })
     },
-    getReservations(page, dtstart, dtend) {
+    getReservations(req) {
 
         return new Promise((resolve, reject) => {
+
+            let page = req.query.page;
+            let dtstart = req.query.start;
+            let dtend = req.query.end;
 
             if (!page) page = 1;
 
@@ -94,7 +98,7 @@ module.exports = {
 
                 resolve({
                     data,
-                    links: pag.getNavigation()
+                    links: pag.getNavigation(req.query)
                 })
 
             })
