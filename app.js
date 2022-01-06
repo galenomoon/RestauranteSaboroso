@@ -10,8 +10,7 @@ var http = require('http')
 var socket = require('socket.io')
 var path = require('path')
 
-var indexRouter = require('./routes/index');
-var adminRouter = require('./routes/admin');
+
 
 var app = express();
 
@@ -19,10 +18,16 @@ var http = http.Server(app);
 var io = socket(http)
 
 io.on('connection', function(socket) {
-    console.log('funfou!')
+    console.log('Novo usuário conectado!')
+
 })
 
+var indexRouter = require('./routes/index')(io);
+var adminRouter = require('./routes/admin')(io);
+
 app.use(function(req, res, next) {
+
+    req.body = {};
 
     if (req.method === 'POST') {
         var form = new formidable.IncomingForm({
@@ -79,6 +84,6 @@ app.use(function(err, req, res, next) {
     res.render('error');
 });
 http.listen(3000, function() {
-        console.log('funcionou mesmo');
+        console.log('funcionou :D');
     })
     // module.exports = app;
