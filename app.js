@@ -21,7 +21,6 @@ io.on('connection', function(socket) {
     console.log('Novo usuário conectado!')
 
 })
-
 var indexRouter = require('./routes/index')(io);
 var adminRouter = require('./routes/admin')(io);
 
